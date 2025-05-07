@@ -1,0 +1,1186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Lodges | Premium Hotel Booking</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <style>
+        :root {
+            --gold: #C6A769;
+            --dark-gold: #9E8545;
+            --light-gold: #E8D9B5;
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --text-light: #f8f9fa;
+            --text-gray: #aaa;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: var(--light-gold);
+            padding: 20px;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "images/luxury-pattern.png" %}') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(198, 167, 105, 0.2);
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.95) !important;
+            padding: 5px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand i {
+            color: var(--gold);
+        }
+
+        .navbar a {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            position: relative;
+            padding: 8px 15px !important;
+        }
+
+        .navbar a:hover {
+            color: var(--gold) !important;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?cs=srgb&dl=pexels-donaldtong94-189296.jpg&fm=jpg') no-repeat center center/cover;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero .btn {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            padding: 15px 40px;
+            background: var(--gold);
+            border: none;
+            transition: all 0.4s ease;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(198, 167, 105, 0.3);
+        }
+
+        .hero .btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(198, 167, 105, 0.4);
+        }
+
+        .hero .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .hero .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .booking-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "images/luxury-pattern-light.png" %}') center/cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .hotel-info {
+            position: relative;
+            z-index: 1;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-top: -50px;
+            transition: all 0.3s ease;
+        }
+
+        .hotel-info:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel-info h3 {
+            color: #020704;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .hotel-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .hotel-info p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .hotel-info ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .hotel-info ul li {
+            font-size: 1rem;
+            color: #333;
+            margin-top: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .hotel-info ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .img-fluid.rounded {
+            border-radius: 10px !important;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            height: 350px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .img-fluid.rounded:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "images/luxury-pattern-light.png" %}') center/cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .features h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            color: #222;
+        }
+
+        .features h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .features .card {
+            border: none;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            margin-bottom: 30px;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            background: white;
+        }
+
+        .features .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .features .card i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .features .card-img-top {
+            height: 220px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .features .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .features .card-body {
+            padding: 30px;
+        }
+
+        .features .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .features .card-text {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--gold);
+            color: #111;
+            transform: translateY(-3px);
+        }
+/* Footer */
+.footer {
+            background: #121212;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+        .newsletter-form .form-control {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+
+        .newsletter-form .form-control::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .newsletter-form .btn {
+            background: var(--gold);
+            color: #111;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form .btn:hover {
+            background: var(--light-gold);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            background: var(--darker-bg);
+            padding: 25px 0;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .copyright p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .copyright a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--gold);
+        }
+
+        /* Welcome Flash Styles */
+        .welcome-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .welcome-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 1200px;
+        }
+        
+        .luxury-badge {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: var(--gold);
+            color: #111;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(198, 167, 105, 0.3);
+        }
+        
+        .welcome-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+            color: white;
+        }
+        
+        .hotel-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 30px 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hotel-name span {
+            background: linear-gradient(to right, var(--gold), var(--light-gold));
+            -webkit-background-clip: text; 
+            background-clip: text;         
+            -webkit-text-fill-color: transparent;
+            color: transparent;       
+        }
+        
+        .welcome-content h1 {
+            font-size: 1.8rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-content p {
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            margin: 30px 0 50px;
+            font-family: 'Poppins', sans-serif;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        #enterBtn {
+            background: var(--gold);
+            color: #111;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0 auto;
+            box-shadow: 0 10px 20px rgba(198, 167, 105, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #enterBtn:hover {
+            background: var(--light-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(198, 167, 105, 0.4);
+        }
+        
+        #enterBtn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        #enterBtn:hover::before {
+            left: 100%;
+        }
+        
+        .welcome-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('{% static "images/luxury-pattern.png" %}') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* Auth Buttons */
+        .auth-button {
+            padding: 10px 25px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg,#9E8545);
+            color: white;
+        }
+        
+        .register-btn {
+            background: linear-gradient(135deg, #9E8545);
+            color: white;
+        }
+        
+        .logout-btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+        
+        .auth-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Welcome Message */
+        .welcome-message {
+            color: var(--gold);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            background-color: rgba(198, 167, 105, 0.1);
+            border-radius: 50px;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(198, 167, 105, 0.2);
+        }
+        
+        .welcome-message:hover {
+            background-color: rgba(198, 167, 105, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(198, 167, 105, 0.1);
+        }
+        
+        /* Dropdown Menu */
+        .dropdown-menu {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 15px 0;
+            border: none;
+            margin-top: 10px;
+        }
+        
+        .dropdown-item.explore-link {
+            color: #333 !important;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 5px 10px;
+        }
+        
+        .dropdown-item.explore-link:hover {
+            background-color: rgba(198, 167, 105, 0.1);
+            color: var(--gold) !important;
+            transform: translateX(5px);
+        }
+        
+        /* SweetAlert Customization */
+        .swal2-popup.custom-popup {
+            border-radius: 20px !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            font-family: 'Poppins', sans-serif;
+            max-width: 450px;
+            background: linear-gradient(135deg, #fefefe, #f8f9fa);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .swal2-title {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .swal2-html-container {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .custom-confirm-button {
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold)) !important;
+            color: white !important;
+            font-weight: 600;
+            border-radius: 50px !important;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none !important;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-confirm-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(198, 167, 105, 0.4) !important;
+        }
+        
+        .custom-cancel-button {
+            border-radius: 50px !important;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-cancel-button:hover {
+            background: #f1f1f1 !important;
+            transform: translateY(-2px);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hotel-name {
+                font-size: 4.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hotel-name {
+                font-size: 3.5rem;
+            }
+            
+            .welcome-content h1 {
+                font-size: 1.2rem;
+                letter-spacing: 5px;
+            }
+            
+            .welcome-content p {
+                font-size: 1.1rem;
+            }
+            
+            #enterBtn {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                font-size: 1.8rem;
+                padding: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero .btn {
+                font-size: 1.1rem;
+                padding: 12px 30px;
+            }
+            
+            .hotel-name {
+                font-size: 2.8rem;
+            }
+            
+            .welcome-content h1 {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
+            
+            .welcome-content p {
+                font-size: 0.9rem;
+                margin: 20px 0 30px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .auth-button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Flash Screen -->
+    <div id="welcomeFlash" class="welcome-flash">
+        <div class="welcome-container">
+            <!-- Luxury Badge -->
+            <div class="luxury-badge animate_animated animate_bounceIn">
+                <i class="fas fa-star"></i>
+                <span>LUXURY COLLECTION</span>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="welcome-content">
+                <h1 class="animate_animated animate_fadeInDown">WELCOME TO</h1>
+                <div class="hotel-name animate_animated animatefadeInUp animate_delay-1s">
+                    <span>GRAND</span>
+                    <span>LUXURY LODGES</span>
+                </div>
+                <p class="animate_animated animatefadeIn animate_delay-2s">Where timeless elegance meets modern comfort</p>
+                
+                <button id="enterBtn" class="animate_animated animatefadeInUp animate_delay-3s">
+                    ENTER SITE <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <!-- Background Elements -->
+            <div class="welcome-bg"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <i class="fas fa-crown me-2"></i> Luxury Lodges
+    </header>
+    
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"><i class="fas fa-hotel"></i> Luxury Lodges</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            {% if user.is_authenticated %}
+            <p class="welcome-message navbar-nav ms-auto me-3">
+                <i class="fas fa-user-circle"></i> Welcome, <strong>{{ request.user.username }}</strong>!
+            </p>
+            {% endif %}
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'my_bookings' %}"><i class="fas fa-calendar-check me-1"></i> My Bookings</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'hotel_list' %}"><i class="fas fa-building me-1"></i> Hotels</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><i class="fas fa-info-circle me-1"></i> About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}"><i class="fas fa-envelope me-1"></i> Contact</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-compass me-1"></i> Explore
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="exploreDropdown">
+                            <li><a class="dropdown-item explore-link" href="{% url 'facility' %}"><i class="fas fa-spa"></i> Facilities</a></li>
+                            <li><a class="dropdown-item explore-link" href="{% url 'photo_gallery' %}"><i class="fas fa-images"></i> Gallery</a></li>
+                            <li><a class="dropdown-item explore-link" href="{% url 'video_quotes' %}"><i class="fas fa-film"></i> Aesthetic Vibes</a></li>
+                        </ul>
+                    </li>
+                    
+                    {% if not request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            <button class="auth-button login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">
+                            <button class="auth-button register-btn"><i class="fas fa-user-plus"></i> Register</button>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <button class="auth-button logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Experience Unparalleled Luxury</h1>
+            <p>Discover our exquisite collection of premium hotels and resorts worldwide</p>
+            <a href="{% url 'hotel_list' %}" class="btn btn-lg"><i class="fas fa-calendar-alt me-2"></i> Book Your Stay</a>
+        </div>
+    </div>
+
+    <!-- Booking Section -->
+    {% load static %}
+    <div class="booking-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Column -->
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <img src="{% static 'images/2.jpg' %}" class="img-fluid rounded" alt="Luxury Hotel Suite">
+                    <div class="hotel-info">
+                        <h3>5-Star Hotels & Resorts</h3>
+                        <p>Welcome to a stay where elegance meets comfort, and every moment feels special. Here, hospitality is more than service—it's a promise of warmth, relaxation, and unforgettable experiences. Whether you're here for business or leisure, let us make your stay truly exceptional. Your perfect getaway starts now!</p>
+                        <ul>
+                            <li>24/7 Concierge & Room Service</li>
+                            <li>Gourmet Breakfast & High-Speed Wi-Fi</li>
+                            <li>Breathtaking Views & Prime Locations</li>
+                            <li>Luxury Spa & Wellness Centers</li>
+                            <li>World-Class Dining Experiences</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="col-lg-6">
+                    <img src="{% static 'images/1.jpg' %}" class="img-fluid rounded" alt="Luxury Hotel Room">
+                    <div class="hotel-info">
+                        <h3>Unmatched Comfort & Style</h3>
+                        <p>Step into a world of comfort, where every detail is designed for your relaxation and joy. From warm welcomes to luxurious stays, we strive to make every moment of your journey unforgettable. Whether you're seeking adventure or tranquility, we are here to create the perfect escape. Your dream stay begins now!</p>
+                        <ul>
+                            <li>Premium Bedding & Pillow Menus</li>
+                            <li>Smart Room Technology</li>
+                            <li>Personalized Butler Service</li>
+                            <li>Infinity Pools & Private Beaches</li>
+                            <li>Exclusive Member Benefits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Features Section -->
+    <div class="features text-center">
+        <div class="container">
+            <h2>Why Choose Luxury Lodges?</h2>
+            <div class="row">
+                <!-- Feature 1 -->
+                 <!-- Feature 1 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="https://media.istockphoto.com/id/671197130/vector/poster-with-cup-of-coffee-and-text-free-wifi.jpg?s=612x612&w=0&k=20&c=2PmBnmBlFJWvD7eZ_Ct4KjNxFsB3flXZBQo5DJJmIxk=" class="card-img-top" alt="Free Wi-Fi">
+                    <div class="card-body">
+                        <i class="fas fa-wifi"></i>
+                        <h5 class="mt-2">Free Wi-Fi</h5>
+                        <p class="card-text">Enjoy high-speed internet across the hotel premises.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature 2 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/83/8e/01/red-orchid-spa.jpg?w=500&h=500&s=1" class="card-img-top" alt="Spa & Wellness">
+                    <div class="card-body">
+                        <i class="fas fa-spa"></i>
+                        <h5 class="mt-2">Spa & Wellness</h5>
+                        <p class="card-text">Relax and rejuvenate with our exclusive spa services.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature 3 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="https://img.staticmb.com/mbcontent/images/crop/uploads/2024/8/Swimming-Pool-Designs_0_1200.jpg" class="card-img-top" alt="Swimming Pool">
+                    <div class="card-body">
+                        <i class="fas fa-swimming-pool"></i>
+                        <h5 class="mt-2">Swimming Pool</h5>
+                        <p class="card-text">Dive into luxury with our temperature-controlled pools.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature 4 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/87/e5/a1.jpg" class="card-img-top" alt="Restaurant">
+                    <div class="card-body">
+                        <i class="fas fa-utensils"></i>
+                        <h5 class="mt-2">Gourmet Dining</h5>
+                        <p class="card-text">Experience exquisite culinary delights from our chefs.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature 5 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="https://img.freepik.com/premium-photo/247-service-icon-support-clicks-screen_438099-7527.jpg?semt=ais_hybrid&w=740" class="card-img-top" alt="24/7 Service">
+                    <div class="card-body">
+                        <i class="fas fa-concierge-bell"></i>
+                        <h5 class="mt-2">24/7 Service</h5>
+                        <p class="card-text">Round-the-clock assistance for all your needs.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature 6 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJh-pEUKoVC8PAlz7jtx7CjrSRQDrr1BPfEA&s" class="card-img-top" alt="Fitness Center">
+                    <div class="card-body">
+                        <i class="fas fa-dumbbell"></i>
+                        <h5 class="mt-2">Fitness Center</h5>
+                        <p class="card-text">Stay fit with our state-of-the-art gym equipment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+     <!-- Footer -->
+<footer class="footer-section" style="background: #121212; color: white; padding: 60px 0 0;">
+    <div class="container">
+        <div class="row">
+            <!-- About Column -->
+            <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                <div class="footer-logo mb-4">
+                    <h3 style="font-family: 'Playfair Display', serif; color: #C6A769; font-size: 1.8rem;">
+                        <i class="fas fa-hotel me-2"></i> HJ Luxury Lodges
+                    </h3>
+                </div>
+                <p style="color: #aaa; line-height: 1.8;">
+                    Experience unparalleled luxury and comfort at our premium hotels. 
+                    We're committed to providing exceptional service and unforgettable 
+                    experiences for our valued guests.
+                </p>
+                <div class="social-icons mt-4">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                <h5 class="text-uppercase mb-4" style="color: #C6A769; font-weight: 600;">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'home' %}" class="text-white" style="text-decoration: none; transition: all 0.3s;">Home</a></li>
+                    <li class="mb-2"><a href="{% url 'hotel_list' %}" class="text-white" style="text-decoration: none; transition: all 0.3s;">Our Hotels</a></li>
+                    <li class="mb-2"><a href="{% url 'facility' %}" class="text-white" style="text-decoration: none; transition: all 0.3s;">Facilities</a></li>
+                    <li class="mb-2"><a href="{% url 'about' %}" class="text-white" style="text-decoration: none; transition: all 0.3s;">About Us</a></li>
+                    <li class="mb-2"><a href="{% url 'contact' %}" class="text-white" style="text-decoration: none; transition: all 0.3s;">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info Column -->
+            <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                <h5 class="text-uppercase mb-4" style="color: #C6A769; font-weight: 600;">Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-map-marker-alt me-2" style="color: #C6A769;"></i>
+                        <span style="color: #aaa;">123 Luxury Street, Beverly Hills, CA 90210</span>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-phone-alt me-2" style="color: #C6A769;"></i>
+                        <span style="color: #aaa;">+1 (234) 567-8900</span>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-envelope me-2" style="color: #C6A769;"></i>
+                        <span style="color: #aaa;">info@hjluxurylodges.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock me-2" style="color: #C6A769;"></i>
+                        <span style="color: #aaa;">24/7 Reception</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="text-uppercase mb-4" style="color: #C6A769; font-weight: 600;">Newsletter</h5>
+                <p style="color: #aaa;">Subscribe to our newsletter for exclusive offers and updates.</p>
+                <form class="mb-3">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your Email" style="background: #222; border: 1px solid #333; color: white; border-radius: 0;">
+                        <button class="btn btn-primary" type="submit" style="background: #C6A769; border: none; border-radius: 0; padding: 0 20px;">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+                <p style="color: #777; font-size: 0.9rem;">
+                    <i class="fas fa-lock me-2"></i> We respect your privacy
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright Section -->
+    <div class="copyright py-4" style="background: #0a0a0a; margin-top: 40px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0" style="color: #777; font-size: 0.9rem;">
+                        &copy; 2025 HJ Luxury Lodges. All Rights Reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0" style="color: #777; font-size: 0.9rem;">
+                        <a href="{% url 'policy' %}" class="text-white me-3" style="text-decoration: none;">Privacy Policy</a>
+                        <a href="{% url 'terms' %}" class="text-white me-3" style="text-decoration: none;">Terms of Service</a>
+                        <a href="{% url 'map' %}" class="text-white" style="text-decoration: none;">Sitemap</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+        <!-- JavaScript Libraries -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Hide welcome flash screen
+            document.addEventListener('DOMContentLoaded', function () {
+                const enterBtn = document.getElementById('enterBtn');
+                const welcomeFlash = document.getElementById('welcomeFlash');
+    
+                if (enterBtn && welcomeFlash) {
+                    enterBtn.addEventListener('click', function () {
+                        welcomeFlash.style.opacity = '0';
+                        setTimeout(() => welcomeFlash.style.display = 'none', 1000);
+                    });
+                }
+            });
+    
+            // Navbar scroll effect
+            window.addEventListener('scroll', function () {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        </script>
+    </body>
+    </html>

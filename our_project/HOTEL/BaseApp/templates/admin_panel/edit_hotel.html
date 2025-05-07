@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Hotel: {{ hotel.name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #f8fafc, #e2e8f0);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background-color: #0f172a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand, .navbar-text {
+            color: #fff !important;
+        }
+
+        .card {
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .form-control {
+            border-radius: 0.5rem;
+            border-color: #cbd5e1;
+        }
+
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-outline-secondary {
+            border-radius: 0.5rem;
+        }
+
+        @media (max-width: 576px) {
+            .form-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg px-4 py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#"><i class="bi bi-tools me-2"></i>Admin Panel</a>
+        <span class="navbar-text ms-auto"><i class="bi bi-pencil-square me-1"></i>Editing: {{ hotel.name }}</span>
+    </div>
+</nav>
+
+<!-- Form Section -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card p-4 p-md-5">
+                <h2 class="mb-4 text-primary fw-semibold"><i class="bi bi-building me-2"></i>Edit Hotel</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <div class="d-flex justify-content-between align-items-center mt-4 form-footer">
+                        <a href="{% url 'admin_hotel_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left-circle me-1"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

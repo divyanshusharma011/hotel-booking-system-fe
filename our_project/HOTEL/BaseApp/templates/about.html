@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Luxury Hotels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.5)), 
+                            url('https://cdn.pixabay.com/photo/2022/04/26/13/14/background-7158357_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #f9f9f9);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: #222;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2em;
+            font-weight: 300;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #007bff;
+            margin: 15px auto;
+        }
+
+        h5 {
+            font-size: 1.4em;
+            color: #007bff;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 1.05em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            flex: 1;
+            text-align: center;
+            padding: 30px 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            font-size: 2.5em;
+            color: #007bff;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .icon {
+            transform: scale(1.1);
+        }
+
+        /* Client reviews in a single row */
+        .client-reviews {
+            display: flex;
+            gap: 25px;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            margin-top: 40px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .client-reviews::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .client-reviews::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+        .client-reviews::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .review-card {
+            flex: 0 0 300px;
+            background: #fff;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .review-content {
+            padding: 25px;
+        }
+
+        .review-card h5 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .review-card p {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .review-card .rating {
+            color: #ffc107;
+            margin: 10px 0;
+        }
+
+        .decorative-line {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #007bff, transparent);
+            margin: 40px 0;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 50vh;
+            }
+
+            .features {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .feature-card {
+                margin-bottom: 0;
+            }
+        }
+
+        .home-button {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            background: linear-gradient(45deg, #d4af37, #f0c14b);
+            color: #111;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+             z-index: 10;
+            }
+    
+        .home-button:hover {
+            background: linear-gradient(45deg, #f0c14b, #d4af37);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="{% url 'home' %}" class="home-button">Home</a>
+
+
+    <div class="hero">
+        <div class="hero-content">
+            <h2 style="color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">Welcome to Luxury Hotels</h2>
+            <p style="color: #f1f1f1; font-size: 1.2em;">Discover the finest luxury lodgings across the globe, providing top-tier service and unforgettable experiences.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section" id="our-story">
+            <div class="card">
+                <h5>Our Story</h5>
+                <p>Founded in 2025, Luxury Lodges has been committed to providing exceptional hospitality experiences to our guests. We carefully curate a selection of the finest hotels around the world, ensuring that each property meets our high standards of luxury, comfort, and service.</p>
+                <p>Our journey began with a simple vision: to create a collection of hotels where every detail matters, where service is personalized, and where guests feel truly valued. Today, we're proud to partner with some of the most exquisite properties across six continents.</p>
+            </div>
+        </div>
+
+        <hr class="decorative-line">
+
+        <div class="section" id="features">
+            <h2>Why Choose Us</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-hotel"></i></div>
+                    <h5>Premium Selection</h5>
+                    <p>Each property in our collection undergoes a rigorous 150-point inspection to ensure it meets our exacting standards for luxury and service.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-concierge-bell"></i></div>
+                    <h5>Expert Service</h5>
+                    <p>Our dedicated concierge team is available 24/7 to assist with everything from dinner reservations to private tours and special requests.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-lock"></i></div>
+                    <h5>Secure Booking</h5>
+                    <p>Enjoy peace of mind with our secure booking platform and price match guarantee, ensuring you always get the best value.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="testimonials">
+            <h2>What Our Guests Say</h2>
+            <div class="client-reviews">
+                <div class="review-card">
+                    <img src="/static/images/client1.jpg" alt="Client 1" class="review-image">
+                    <div class="review-content">
+                        <h5>Harsh</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Our stay at the Venetian Resort was absolutely magical. The attention to detail and personalized service made our anniversary unforgettable. We'll definitely be returning!"</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <img src="/static/images/client2.jpg" alt="Client 2" class="review-image">
+                    <div class="review-content">
+                        <h5>Jiya</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"As a frequent traveler, I'm rarely impressed, but the Aman Tokyo property recommended by Luxury Hotels was perfection."</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <img src="/static/images/a.jpg" alt="Client 3" class="review-image">
+                    <div class="review-content">
+                        <h5>Akansha</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"The luxury villa we booked exceeded all expectations. The private beach and personal chef made it special."</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <img src="/static/images/d.jpg" alt="Client 4" class="review-image">
+                    <div class="review-content">
+                        <h5>Divyanshu</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"From the moment we arrived, the staff made our honeymoon magical. The room upgrade was amazing!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

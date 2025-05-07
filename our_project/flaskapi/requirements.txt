@@ -1,0 +1,7 @@
+# requirements.txt for Flask API
+
+Flask==2.3.2
+Flask-RESTful==0.3.10
+Flask-Cors==3.0.10
+python-dotenv==1.0.1
+requests==2.31.0

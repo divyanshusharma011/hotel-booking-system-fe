@@ -1,0 +1,11 @@
+<h2>User Detail</h2>
+<p>ID: {{ user.id }}</p>
+<p>Username: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Date Joined: {{ user.date_joined }}</p>
+<p>Is Staff: {{ user.is_staff }}</p>
+
+<a href="{% url 'admin_user_list' %}">Back to user list</a>
+
+
+

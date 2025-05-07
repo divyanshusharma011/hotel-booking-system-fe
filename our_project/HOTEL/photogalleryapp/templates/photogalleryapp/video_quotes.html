@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inspiration Wall</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .quote-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      max-width: 800px;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: rgba(0,0,0,0.5);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .quote {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .author {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .home-button {
+      position: absolute;
+      top: 25px;
+      right: 30px;
+      background: linear-gradient(45deg, #d4af37, #f0c14b);
+      color: #111;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+       z-index: 10;
+      }
+
+  .home-button:hover {
+      background: linear-gradient(45deg, #f0c14b, #d4af37);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  }
+  </style>
+</head>
+<body>
+  <a href="{% url 'home' %}" class="home-button">Home</a>
+
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="https://videos.pexels.com/video-files/5113992/5113992-sd_640_360_25fps.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <div class="quote-box">
+    <div class="quote" id="quoteText">“True luxury is in the experience—the feeling of being pampered, peaceful, and perfectly at home.”</div>
+    <div class="author" id="quoteAuthor">– Peter Drucker</div>
+  </div>
+
+  <script>
+    const quotes = [
+      { text: "“A great hotel is a haven for the weary, a sanctuary of comfort, and a celebration of elegance.”", author: "– Zadie Smith" },
+      { text: "“Not just a stay—an escape into elegance, comfort, and timeless charm”", author: "– Theodore Roosevelt" },
+      { text: "“More than a hotel. It’s a feeling of being beautifully looked after.”", author: "– William Butler Yeats" },
+      { text: "“When comfort meets sophistication, a stay becomes an experience.”", author: "– George Addair" }
+    ];
+
+    let currentQuote = 0;
+
+    function showNextQuote() {
+      currentQuote = (currentQuote + 1) % quotes.length;
+      document.getElementById("quoteText").style.opacity = 0;
+      document.getElementById("quoteAuthor").style.opacity = 0;
+
+      setTimeout(() => {
+        document.getElementById("quoteText").textContent = quotes[currentQuote].text;
+        document.getElementById("quoteAuthor").textContent = quotes[currentQuote].author;
+        document.getElementById("quoteText").style.opacity = 1;
+        document.getElementById("quoteAuthor").style.opacity = 1;
+      }, 500);
+    }
+
+    setInterval(showNextQuote, 5000); // Change every 5 seconds
+  </script>
+
+</body>
+</html>

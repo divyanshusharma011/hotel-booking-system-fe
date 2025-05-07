@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Stays - Exclusive Membership</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .register-container {
+            background: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 50px;
+            width: 850px;
+            max-height: 90vh;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.5s ease;
+            overflow-y: auto;
+        }
+
+        .register-container:hover {
+            transform: translateY(-5px) scale(1.005);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px) rotateX(10deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #d4af37;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, transparent);
+            margin: 15px auto 0;
+            opacity: 0.6;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #fff;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            border-radius: 3px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 35px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        input, textarea, select {
+            padding: 15px 15px 15px 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 15px;
+            color: #fff;
+            transition: all 0.4s ease;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        textarea {
+            padding: 15px;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .helptext {
+            margin-top: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+        }
+
+        .password-rules {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 13px;
+            border-left: 3px solid rgba(212, 175, 55, 0.5);
+        }
+
+        .password-rules ul {
+            padding-left: 20px;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        .password-rules li {
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .password-rules li::before {
+            content: '•';
+            color: #d4af37;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 17px;
+            background: linear-gradient(135deg, #d4af37, #f0c14b);
+            border: none;
+            border-radius: 10px;
+            color: #111;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #f0c14b, #d4af37);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        button:hover::after {
+            left: 100%;
+        }
+
+        .login-link {
+            grid-column: span 2;
+            text-align: center;
+            font-size: 15px;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login-link a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .login-link a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #d4af37;
+            transition: width 0.3s ease;
+        }
+
+        .login-link a:hover::after {
+            width: 100%;
+        }
+
+        .errorlist {
+            grid-column: span 2;
+            color: #ff9e9e;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            list-style: none;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border-left: 3px solid #ff6b6b;
+            animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            grid-column: span 2;
+            margin: 5px 0;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-1000px) rotate(720deg); }
+        }
+
+        @media (max-width: 900px) {
+            .register-container {
+                width: 90%;
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-group.full-width, button, .login-link, .errorlist {
+                grid-column: span 1;
+            }
+
+            .register-container {
+                max-height: 85vh;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .register-container {
+                padding: 30px 25px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 100px; height: 100px; left: 10%; top: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; left: 70%; top: 20%; animation-delay: 2s; animation-duration: 20s;"></div>
+        <div class="floating-element" style="width: 60px; height: 60px; left: 30%; top: 50%; animation-delay: 5s; animation-duration: 12s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; left: 60%; top: 80%; animation-delay: 7s; animation-duration: 18s;"></div>
+    </div>
+
+    <div class="register-container">
+        <div class="logo">LUXURY STAYS</div>
+        <h2>Become a Privileged Member</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <ul class="errorlist">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><i class="fas fa-exclamation-circle"></i> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li><i class="fas fa-exclamation-circle"></i> {{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="id_username">Username</label>
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" id="id_username" required placeholder="Enter your unique username">
+                <span class="helptext">150 characters maximum. Letters, digits and @/./+/-/_ only.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="id_phone">Phone Number</label>
+                <i class="fas fa-phone"></i>
+                <input type="text" name="phone" id="id_phone" required placeholder="+1 (___) ___-____">
+            </div>
+
+            <div class="form-group">
+                <label for="id_gender">Gender</label>
+                <i class="fas fa-venus-mars"></i>
+                <select name="gender" id="id_gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="id_address">Address</label>
+                <i class="fas fa-map-marker-alt"></i>
+                <textarea name="address" id="id_address" rows="3" required placeholder="Your full address"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Email Address</label>
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" id="id_email" required placeholder="your@email.com">
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="form-group full-width">
+                <label for="id_password1">Create Password</label>
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password1" id="id_password1" required placeholder="Create a strong password">
+                <div class="password-rules">
+                    <ul>
+                        <li>Minimum 8 characters with a mix of letters, numbers, and symbols</li>
+                        <li>Shouldn't contain personal information or common words</li>
+                        <li>Consider using a passphrase for better security</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="id_password2">Confirm Password</label>
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password2" id="id_password2" required placeholder="Re-enter your password">
+                <span class="helptext">For security, please type your password again to confirm.</span>
+            </div>
+
+            <button type="submit">
+                <span>Join Our Exclusive Community</span>
+            </button>
+        </form>
+
+        <div class="login-link">
+            <p>Already a member? <a href="{% url 'login' %}">Access your account here</a></p>
+        </div>
+    </div>
+</body>
+</html>

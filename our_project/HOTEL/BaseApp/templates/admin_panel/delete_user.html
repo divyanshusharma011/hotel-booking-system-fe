@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Deletion</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Confirm Deletion</h2>
+    <div class="alert alert-danger">
+        <strong>Warning!</strong> You are about to delete user: <strong>{{ user.username }}</strong>.
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'admin_user_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>

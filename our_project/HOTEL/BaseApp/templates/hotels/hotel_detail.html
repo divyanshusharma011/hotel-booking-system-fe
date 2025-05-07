@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ hotel.name }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-light: #16213e;
+            --accent-gold: #e6af2e;
+            --accent-gold-light: #f5d061;
+            --accent-red: #e94560;
+            --text-light: #f1f1f1;
+            --text-dark: #333333;
+            --card-bg: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            --gradient-bg: linear-gradient(135deg, #485563 0%, #29323c 50%, #1c1e24 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--gradient-bg);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            position: relative;
+            height: 400px;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url("https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.0/collection/components/icon/icon.svg");
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            overflow: hidden;
+        }
+        
+        .hotel-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            gap: 5px;
+        }
+        
+        .hotel-rating i {
+            color: var(--accent-gold);
+        }
+        
+        .hotel-address {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+        
+        .hotel-address i {
+            margin-right: 8px;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hotel-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hotel-tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+        
+        .section-title {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gold);
+        }
+        
+        .filter-bar {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .filter-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+        
+        .rooms-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .room-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+            transform: translateY(0);
+        }
+        
+        .room-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .room-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .room-card:hover .room-image {
+            transform: scale(1.1);
+        }
+        
+        .room-label {
+            position: absolute;
+            top: 20px;
+            right: 0;
+            background: var(--accent-red);
+            color: white;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 4px 0 0 4px;
+            box-shadow: 0 2px 10px rgba(233, 69, 96, 0.4);
+            z-index: 2;
+        }
+        
+        .room-details {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .room-type {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+        
+        .room-price {
+            font-size: 1.4rem;
+            color: var(--accent-red);
+            font-weight: 700;
+            text-align: right;
+            line-height: 1;
+        }
+        
+        .price-per-night {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #7f8c8d;
+        }
+        
+        .room-number {
+            color: #7f8c8d;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .room-divider {
+            width: 100%;
+            height: 1px;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%);
+            margin: 15px 0;
+        }
+        
+        .amenities {
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .amenity-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background-color: rgba(22, 33, 62, 0.07);
+            border-radius: 20px;
+            color: var(--primary-light);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .amenity-tag i {
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .amenity-tag:hover {
+            background-color: rgba(22, 33, 62, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .availability {
+            margin: 15px 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .availability::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        .available {
+            color: #27ae60;
+        }
+        
+        .available::before {
+            background-color: #27ae60;
+        }
+        
+        .not-available {
+            color: var(--accent-red);
+        }
+        
+        .not-available::before {
+            background-color: var(--accent-red);
+        }
+        
+        .no-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+        }
+        
+        .book-now-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .book-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(230, 175, 46, 0.6);
+        }
+        
+        .book-now-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .book-now-btn:hover:before {
+            left: 100%;
+        }
+        
+        .book-now-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .hotel-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin: 40px 0;
+            padding: 14px 28px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background: rgba(0,0,0,0.3);
+            color: var(--text-light);
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            border-radius: 30px 30px 0 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            padding: 0 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gold);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent-gold);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.6;
+            font-size: 0.8rem;
+            width: 100%;
+        }
+        
+        .no-results {
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(39, 174, 96, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .rooms-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                height: 300px;
+            }
+            
+            .hotel-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-options {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hotel-header">
+            <h1>{{ hotel.name }}</h1>
+            <div class="hotel-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(4.5/5)</span>
+            </div>
+            
+            <p class="hotel-tagline">Experience luxury and comfort in the heart of the city</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hotel-features">
+            <div class="feature-card">
+                <i class="fas fa-swimming-pool feature-icon"></i>
+                <h3 class="feature-title">Swimming Pool</h3>
+                <p class="feature-desc">Relax and unwind in our luxury swimming pool with panoramic views</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-utensils feature-icon"></i>
+                <h3 class="feature-title">Fine Dining</h3>
+                <p class="feature-desc">Experience gourmet cuisine from our award-winning chefs</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-spa feature-icon"></i>
+                <h3 class="feature-title">Spa & Wellness</h3>
+                <p class="feature-desc">Rejuvenate with our premium spa treatments and facilities</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-concierge-bell feature-icon"></i>
+                <h3 class="feature-title">24/7 Service</h3>
+                <p class="feature-desc">Round-the-clock concierge service for all your needs</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Available Rooms</h2>
+        
+       
+
+        <div class="rooms-container">
+            {% for room in hotel.rooms.all %}
+                <div class="room-card">
+                    <div class="image-container">
+                        {% if room.available %}
+                            <div class="room-label">Hot Deal</div>
+                        {% endif %}
+                        {% if room.image %}
+                            <img src="{{ room.image.url }}" alt="{{ room.room_type }}" class="room-image">
+                        {% else %}
+                            <div class="no-image">
+                                <p>No image available</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="room-details">
+                        <div class="room-header">
+                            <div class="room-type">{{ room.room_type }}</div>
+                            <div class="room-price">
+                                ₹{{ room.price_per_night }}
+                                <span class="price-per-night">per night</span>
+                            </div>
+                        </div>
+                        <div class="room-number">Room #{{ room.room_number }}</div>
+                        
+                        <div class="room-divider"></div>
+                        
+                        <div class="amenities">
+                            <span class="amenity-tag"><i class="fas fa-wifi"></i> WiFi</span>
+                            <span class="amenity-tag"><i class="fas fa-snowflake"></i> AC</span>
+                            <span class="amenity-tag"><i class="fas fa-tv"></i> TV</span>
+                            <span class="amenity-tag"><i class="fas fa-bed"></i> King Bed</span>
+                            <span class="amenity-tag"><i class="fas fa-glass-martini-alt"></i> Mini Bar</span>
+                        </div>
+                        
+                        <div class="availability {% if room.available %}available{% else %}not-available{% endif %}">
+                            {% if room.available %}
+                                Available
+                            {% else %}
+                                Not Available
+                            {% endif %}
+                        </div>
+                        
+                        <a href="{% url 'book_room' room.id %}" class="book-now-btn" {% if not room.available %}disabled{% endif %}>
+                            {% if room.available %}Book Now{% else %}Unavailable{% endif %}
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="no-results">
+                    <h3>No rooms available at the moment</h3>
+                    <p>Please check back later or contact us directly for assistance.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'hotel_list' %}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to hotel list
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4 class="footer-title">About Us</h4>
+                <ul class="footer-links">
+                    <li><a href="{% url 'facility' %}">Facilities</a></li>
+                    <li><a href="{% url 'photo_gallery'%}">Gallery</a></li>
+                    <li><a href="{% url 'contact'%}">Contact Us</a></li>
+                    <li><a href="{%url 'about'%}">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="#">92468-12876</a></li>
+                    <li><a href="#">luxury@hotelname.com</a></li>
+                    <li><a href="#">Luxury Avenue, City</a></li>
+                    <li><a href="#">Contact Form</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4 class="footer-title">Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; 2025 {{ hotel.name }}. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
